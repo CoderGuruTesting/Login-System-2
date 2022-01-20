@@ -16,6 +16,7 @@ function onSignIn(googleUser) {
     localStorage.setItem('myUserEntity', JSON.stringify(userEntity));
 
     afterSignIn(userEntity);
+    console.log("afterSignIn?")
 }
 
 document.getElementById("signoutLink").addEventListener("click", function signOut() {
