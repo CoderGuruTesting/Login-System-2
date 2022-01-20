@@ -36,22 +36,22 @@ document.getElementById("signoutLink").addEventListener("click", function signOu
 function afterSignIn(userProfile) {
     var googleProfile = userProfile;
 
-    // var check = firebase.database().ref('users').orderByKey().equalTo(googleProfile.id).once("value", function (snapshot) {
-    //     if (snapshot.exists()) {
-    //         let userData, userSpecialString;
+    var check = firebase.database().ref('users').orderByKey().equalTo(googleProfile.id).once("value", function (snapshot) {
+        if (snapshot.exists()) {
+            let userData, userSpecialString;
 
-    //         firebase.database().ref("users/" + googleProfile.id).on("value", (snap) => {
-    //             userData = snap.val();
-    //             userSpecialString = userData.userString;
+            firebase.database().ref("users/" + googleProfile.id).on("value", (snap) => {
+                userData = snap.val();
+                userSpecialString = userData.userString;
 
-    //             document.getElementById("specialString").setAttribute("value", userSpecialString);
-    //         });
-    //     } else {
+                document.getElementById("specialString").setAttribute("value", userSpecialString);
+            });
+        } else {
             writeUserData(googleProfile.id, googleProfile.username, googleProfile.email, googleProfile.profile_picture);
 
-    //         document.getElementById("specialString").setAttribute("value", "new user string");
-    //     }
-    // });
+            document.getElementById("specialString").setAttribute("value", "new user string");
+        }
+    });
 
     document.getElementById("specialString").addEventListener("change", function () {
         setSpecialString(googleProfile.id, document.getElementById("specialString").value);
